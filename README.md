@@ -155,15 +155,15 @@ router eigrp EIGRP
 
 **_BGP_**:
 
-Within the site's network architecture, BGP is implemented with a specific focus on non-transit site configuration for BGP NLRI. 
-The design involves the propagation of only a default BGP route to the Campus network from the Internet Service Providers (ISPs).
+Within the site's network architecture, BGP is implemented with a focus on non-transit site configuration for BGP NLRI. 
+The design involves the propagation of only a default BGP route to the Campus network from the ISPs.
 BGP peering is formed between EGDGE routers and their connected ISPs
 
-To optimize the distribution of BGP traffic and ensure load-sharing, egress traffic is directed to exit through the Edge-1 router, facilitated by the use of HSRPv2. 
+To optimize the distribution of BGP traffic and ensure load-sharing, egress traffic is directed to exit through the Edge-1 router, by use of HSRPv2. 
 To enable **automatic fail-over**, HSRP is configured in conjunction with IP-SLA and object tracking to track reachability of 44.67.28.1/32
 
 On the other hand, Ingress traffic is routed through Edge-2. 
-This asymmetrical traffic distribution is achieved by applying AS-prepending specifically to the prefix 32.19.86.0/27 when advertising it to the ISPs.
+This is achieved by applying AS-prepending specifically to the prefix 32.19.86.0/27 when advertising it to the ISPs.
 
 This AS-prepending technique involves adding multiple instances of the site's Autonomous System (AS) number to the AS-path attribute of the BGP route. 
 In this scenario, it is applied to the prefix 32.19.86.0/27 outbound, influencing the inbound traffic flow through Edge-2.
