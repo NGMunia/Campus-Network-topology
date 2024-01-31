@@ -344,3 +344,12 @@ Extended IP access list Outside-Inside-acl
     50 permit udp any host 192.168.20.254 eq domain
 
 ```
+
+## Images used:
+* Routers and IOS firewalls: i86bi_LinuxL3-AdvEnterpriseK9-M2_157_3_May_2018.bin
+* Switches: i86bi_linux_l2-adventerprisek9-ms.SSA.high_iron_20180510.bin
+* SDN conroller: [Ubuntu VM](https://ubuntu.com/desktop)
+* Windows server: Windows_Server_2016_Datacenter_EVAL_en-us_14393_refresh
+* IDS: [Ostinato Wireshark](https://gns3.com/marketplace/appliances/ostinato-wireshark)
+* Admin-PC: Windows 8.1 ISO VM
+* End-user PCs: [Webterm Docker](https://gns3.com/marketplace/appliances/webterm)
