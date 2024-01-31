@@ -1,10 +1,9 @@
 
 # Campus-Network-Topology
 
-The following topology demonstrates a hierarchical network topology with a collapsed core while employing software defined networking (Automation).
-
-The Branch networks are linked with a single-hub DMVPN for site to site VPN connectivity.
-The network is also configures as BGP-AS-64511 as a non-transit Network, with ISPs only advertising a default route to the HQ site.
+The following topology demonstrates a hierarchical network topology with a collapsed core while employing software-defined networking (Automation).
+The Branch networks are linked with a single-hub DMVPN for site-to-site VPN connectivity. 
+The network is also configured as BGP-AS-64511 as a non-transit Network, with ISPs only advertising a default route to the HQ site.
 
 ![Topology](/Network/Topology.png)
 
