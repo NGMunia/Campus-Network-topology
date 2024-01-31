@@ -9,11 +9,11 @@ The network is also configures as BGP-AS-64511 as a non-transit Network, with IS
 ![Topology](/Network/Topology.png)
 
 
-### Layer 2 connectivity:
+## Layer 2 connectivity:
 The network Employs various layer 2 protocols namely:
 
 
-**_LACP_**:
+**LACP**:
 
 CORE switches and Access switches are configured with LACP in active-active mode.
 Verification is seen below on the ACC-SW1:
@@ -49,11 +49,11 @@ Root bridge for: VLAN0012
 ```
 
 
-### Layer 3 connectivity:
+## Layer 3 connectivity:
 The network Employs various layer 2 protocols namely:
 
 
-**_InterVLAN Routing_**:
+**InterVLAN Routing**:
 
 The network topology is designed as a collapsed core, where the core switches assume the responsibilities of both the core and distribution layers. 
 
@@ -79,7 +79,7 @@ Vl11        11   100 P Standby 192.168.11.1    local           192.168.11.3
 Vl12        12   110 P Active  local           192.168.12.1    192.168.12.3
 ```
 
-**_Multi-Area OSPF_**:
+**Multi-Area OSPF**:
 
 In the HQ region, OSPF is implemented to manage and optimize the routing infrastructure. 
 The network architecture employs inter-area OSPF, specifically designed to enhance scalability and manageability through the segmentation of the network into designated areas.
@@ -107,7 +107,7 @@ CORE-SWITCH-1#
 
 ```
 
-**_EIGRP_**:
+**EIGRP**:
 
 Within the network infrastructure, EIGRP is deployed to facilitate routing within mGRE tunnels, specifically configured under DMVPN architecture.
 
@@ -152,7 +152,7 @@ router eigrp EIGRP
 ```
 
 
-**_BGP_**:
+**BGP**:
 
 Within the site's network architecture, BGP is implemented with a focus on non-transit site configuration for BGP NLRI. 
 The design involves the propagation of only a default BGP route to the Campus network from the ISPs.
@@ -183,7 +183,7 @@ route-map AS-prepending-map permit 10
  set as-path prepend 64511 64511
 ```
 
-**_Redistribution_**:
+**Redistribution**:
 
 OSPF redistribution, Redistributes EIGRP spoke LAN prefixes into the OSPF domain.
 EIGRP redistribution: Redistributes Specific Area 20 and VLAN 12 prefixes into EIGRP.
@@ -207,7 +207,7 @@ O E2     10.1.20.0/23 [110/20] via 10.0.20.5, 02:26:10, Ethernet0/3
                       [110/20] via 10.0.20.1, 02:26:12, Ethernet0/2
 ```
 
-### Automating the Network:
+## Automating the Network:
 The SDN controller is hosted on an Ubuntu server, serving as a centralized platform for orchestrating network configurations. 
 Its primary function is to manage and automate network tasks through Python scripts.
 Python uses Netmiko library.
@@ -243,7 +243,7 @@ print(c.send_command('show run'))
 
 ```
 
-### VPN Services:
+## VPN Services:
 DMVPN phase 2 with IPsec is used to secure communications between the HQ and the Branch spokes.
 EIGRP is the protocol of choice for routing through the tunnels.
 
@@ -270,7 +270,7 @@ dst             src             state          conn-id status
 
 ```
 
-### Network Security:
+## Network Security:
 Zone-based firewall services are configured on the Edge-Firewall (FW-EDGE) with stateful traffic inspection from Inside(Private network) to the Internet.
 ```bash
 FIREWALL-EDGE#sh policy-map type inspect zone-pair private-Internet-zone
