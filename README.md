@@ -31,7 +31,7 @@ Group  Port-channel  Protocol    Ports
 
 ```
 
-**_Rapid PVST+ and Load balancing_**:
+**Rapid PVST+ and Load balancing**:
 
 CORE-SW-1 acts as the root bridge for both VLAN-10 and VLAN-11 traffic and CORE-SW-2 acts as the root bridge for VLAN-12.
 
@@ -56,9 +56,9 @@ The network Employs various layer 2 protocols namely:
 
 The network topology is designed as a collapsed core, where the core switches assume the responsibilities of both the core and distribution layers. 
 
-One of the critical functions performed by these core switches is InterVLAN routing, enabling communication between different VLANs within the network.
+InterVLAN routing is configured, enabling communication between different VLANs within the network.
 
-To enhance network resilience and ensure continuous connectivity, HSRPv2 is implemented. HSRPv2 provides first hop redundancy by  ensuring a redundant and highly available network architecture.
+To enhance network resilience and load sharing, in InterVLAN routing HSRPv2 is implemented.
 
 ```bash
 CORE-SWITCH-1#sh standby brief
@@ -125,7 +125,7 @@ router eigrp EIGRP
  !
  address-family ipv4 unicast autonomous-system 100
   !
-  af-interface Tunnel20
+  af-interface Tunnel10
    summary-address 10.1.10.0 255.255.254.0
    authentication mode md5
    authentication key-chain EIGRP-KEY
@@ -144,7 +144,7 @@ router eigrp EIGRP
   exit-af-topology
   network 10.1.10.0 0.0.0.255
   network 10.1.11.0 0.0.0.255
-  network 172.21.0.0 0.0.0.255
+  network 172.20.0.0 0.0.0.255
   metric weights 0 0 0 1 0 0 0
   eigrp stub connected summary
  exit-address-family
@@ -160,8 +160,7 @@ BGP peering is formed between EGDGE routers and their connected ISPs
 To optimize the distribution of BGP traffic and ensure load-sharing, egress traffic is directed to exit through the Edge-1 router, by use of HSRPv2. 
 To enable **automatic fail-over**, HSRP is configured in conjunction with IP-SLA and object tracking to track reachability of 44.67.28.1/32
 
-On the other hand, Ingress traffic is routed through Edge-2. 
-This is achieved by applying AS-prepending specifically to the prefix 32.19.86.0/27 when advertising it to the ISPs.
+Ingress traffic is routed through Edge-2 by applying AS-prepending specifically to the prefix 32.19.86.0/27 when advertising it to the ISPs.
 
 This AS-prepending technique involves adding multiple instances of the site's Autonomous System (AS) number to the AS-path attribute of the BGP route. 
 In this scenario, it is applied to the prefix 32.19.86.0/27 outbound, influencing the inbound traffic flow through Edge-2.
