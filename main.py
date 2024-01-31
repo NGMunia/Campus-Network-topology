@@ -21,7 +21,7 @@ for devices in chain(Area_0.values(), Firewalls.values(),
 
 
 
-#VERIGYING PANNING-TREE SUMMARY
+#VERIFYING SPANNING-TREE SUMMARY
 for devices in Area_0.values():
     c = ConnectHandler(**devices)
     c.enable()
@@ -38,12 +38,12 @@ for devices in Area_0.values():
 
 
 #VERIFYING HSRPv2 and VRRP
-rp('\n[cyan]----------Verifying HSRP on CORE switches---------[/cyan]')   
-for devices in Area_0.values():
+rp('\n[cyan]----------Verifying HSRP on CORE switches and EDGE Routers---------[/cyan]')   
+for devices in Area_0.values(),Edge_routers.values(:
     c = ConnectHandler(**devices)
     c.enable()
     host  = c.send_command('show version', use_textfsm=True)[0]['hostname']
-    output = c.send_command('show vrrp brief')
+    output = c.send_command('show standby brief')
     rp(host,output, sep='\n')
 rp('\n[cyan]----------Verifying VRRP on Spoke routers---------[/cyan]')
 for devices in Spokes.values():
