@@ -111,11 +111,11 @@ CORE-SWITCH-1#
 Within the network infrastructure, EIGRP is deployed to facilitate routing within mGRE tunnels, specifically configured under DMVPN architecture.
 
 To enhance the efficiency of the network, spokes within the mGRE tunnels are optimized as stub routers. 
-This minimizes the likelihood of Stuck-in-Active scenarios by preventing situations where EIGRP queries are sent but no acknowledgment is received.
+This minimizes the likelihood of Stuck-in-Active scenarios.
 
 Use of MD5 authentication, ensuring the integrity and authenticity of EIGRP messages exchanged within the mGRE tunnels. 
 
-Bandwidth optimization feature is employed to enhance the utilization of available network resources within the mGRE tunnels.
+Bandwidth optimization feature is employed to limit EIGRP bandwidth usage.
 
 ```bash
 Sample config:
@@ -155,7 +155,7 @@ router eigrp EIGRP
 
 Within the site's network architecture, BGP is implemented with a focus on non-transit site configuration for BGP NLRI. 
 The design involves the propagation of only a default BGP route to the Campus network from the ISPs.
-BGP peering is formed between EGDGE routers and their connected ISPs
+BGP peering is formed between EDGE routers and their connected ISPs
 
 To optimize the distribution of BGP traffic and ensure load-sharing, egress traffic is directed to exit through the Edge-1 router, by use of HSRPv2. 
 To enable **automatic fail-over**, HSRP is configured in conjunction with IP-SLA and object tracking to track reachability of 44.67.28.1/32
@@ -240,7 +240,7 @@ print(c.send_command('show run'))
 
 ## VPN Services:
 DMVPN phase 2 with IPsec is used to secure communications between the HQ and the Branch spokes.
-EIGRP is the protocol of choice for routing through the tunnels.
+EIGRP is the protocol of choice for routing through the mGRE tunnel.
 
 ```bash
 DMVPN-HUB-ROUTER#sh ip route eigrp
@@ -301,7 +301,7 @@ policy exists on zp Private-Internet-zone
       Drop
         0 packets, 0 bytes
 ```
-On the Network Mangement clock Only DHCP,SYSLOG,DNS services and 192.168.12.0/24 (admin) prefix is allowed from outside-in
+On the Network Mangement block Only DHCP,SYSLOG,DNS, NefFlow and 192.168.12.0/24 (admin) traffic is allowed from outside-in
 
 ```bash
 FW-MANAGEMENT-ZONE#sh policy-map type inspect zone-pair Outside-Inside-zone
