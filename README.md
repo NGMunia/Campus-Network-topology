@@ -49,7 +49,7 @@ Root bridge for: VLAN0012
 
 
 ## Layer 3 connectivity:
-The network Employs various layer 2 protocols namely:
+The network Employs various layer 3 protocols namely:
 
 
 **InterVLAN Routing**:
