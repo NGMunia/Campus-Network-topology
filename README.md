@@ -224,7 +224,7 @@ sudo apt-get install python3-pip
 pip install netmiko
 ```
 
-Sample code snippet of getting Network device **running configuration**:
+Sample code snippet of getting Network device **running configuration** using Netmiko library:
 
 ```python
 'Router':{
