@@ -166,7 +166,7 @@ Ingress traffic is routed through Edge-2 by applying AS-prepending to  32.19.86.
 ```bash
 router bgp 64511
  bgp log-neighbor-changes
- network 32.19.86.0 mask 255.255.255.224
+ network 32.19.86.0 mask 255.255.255.0
  neighbor 44.67.28.1 remote-as 100
  neighbor 44.67.28.1 route-map AS-prepending-map out
  neighbor 44.67.28.1 filter-list 10 out
