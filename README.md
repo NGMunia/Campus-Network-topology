@@ -160,7 +160,7 @@ BGP peering is formed between EDGE routers and their connected ISPs
 To optimize the distribution of BGP traffic and ensure load-sharing, egress traffic is directed to exit through the Edge-1 router, by use of HSRPv2. 
 To enable **automatic fail-over**, HSRP is configured in conjunction with IP-SLA and object tracking to track reachability of 44.67.28.1/32
 
-Ingress traffic is routed through Edge-2 by applying AS-prepending to  32.19.86.0/24 prefix when advertising it to the ISP-1 on Edge-1 router outbound, influencing the inbound traffic flow through Edge-2 as a better path.
+Ingress traffic is routed through Edge-2 by applying AS-prepending to  32.19.86.0/24 prefix outbound, influencing the inbound traffic flow through Edge-2 as a better path.
 
 
 ```bash
