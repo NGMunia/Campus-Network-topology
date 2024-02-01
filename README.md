@@ -181,9 +181,9 @@ route-map AS-prepending-map permit 10
 **Redistribution**:
 
 OSPF redistribution, Redistributes EIGRP spoke LAN prefixes into the OSPF domain.
-EIGRP redistribution: Redistributes Specific Area 20 and VLAN 12 prefixes into EIGRP.
+EIGRP redistribution: Redistributes Area 20 and VLAN 12 prefixes into EIGRP.
 DMVPN-ROUTER is responsible for redistribution between OSPF and EIGRP domain.
-The EIGRP Add-path feature enables redundant prefix advertisement on 10.1.10.0/23 and 10.1.20.0/23 prefixes.
+The EIGRP Add-path feature enables redundant prefix advertisement for 10.1.10.0/23 and 10.1.20.0/23 prefixes.
 
 ```bash
 
