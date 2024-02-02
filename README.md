@@ -156,9 +156,12 @@ router eigrp EIGRP
 
 **BGP**:
 
-Within the site's network architecture, BGP is implemented with a focus on non-transit site configuration for BGP NLRI. 
-The design involves the propagation of only a default BGP route to the Campus network from the ISPs.
-BGP peering is formed between EDGE routers and their connected ISPs
+BGP peering is formed between EDGE routers and their connected ISPs.
+Within the HQ's network architecture, BGP is implemented with a focus as a non-transit site. 
+In a non-transit scenario, the network primarily manages its own routes and communicates with external networks, but does not forward traffic on behalf of third-party networks.
+
+The design also involves the propagation of only a default BGP route to the Campus network from the ISPs.
+
 
 To optimize the distribution of BGP traffic and ensure load-sharing, egress traffic is directed to exit through the Edge-1 router, by use of HSRPv2. 
 To enable **automatic fail-over**, HSRP is configured in conjunction with IP-SLA and object tracking to track reachability of 44.67.28.1/32
