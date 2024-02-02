@@ -341,6 +341,30 @@ Extended IP access list Outside-Inside-acl
     50 permit udp any host 192.168.20.254 eq domain
 
 ```
+## Network monitoring:
+All Routers are configured to send SNMP traps to the MGT server.
+The MGT server uses PRTG to solicit information via SNMP for general network monitoring, NetFlow for traffic analysis, and Syslog for the capture and analysis of system log data.**
+On ISP-SW1 and ISP-SW2, we've set up RSPAN to capture VPN traffic and SPAN to capture internet-bound traffic. 
+These configurations help monitor and secure the network. The captured data is sent to an Intrusion Detection System (IDS) for analysis. 
+This approach enhances our ability to detect and address potential security issues in both VPN and internet traffic.
+```bash
+ISP-SWITCH-2#sh monitor session all
+Session 1
+---------
+Type                     : Remote Destination Session
+Source RSPAN VLAN      : 66
+Destination Ports      : Et3/2
+    Encapsulation      : Native
+
+
+Session 2
+---------
+Type                     : Local Session
+Source Ports             :
+    Both                 : Et0/0
+Destination Ports      : Et3/3
+    Encapsulation      : Native
+```
 
 ## GNS3 Images used:
 * Routers and IOS firewalls: [i86bi_LinuxL3-AdvEnterpriseK9-M2_157_3_May_2018.bin](https://www.gns3.com/marketplace/appliances/cisco-iou-l3)
