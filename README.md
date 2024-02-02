@@ -303,7 +303,7 @@ policy exists on zp Private-Internet-zone
       Drop
         0 packets, 0 bytes
 ```
-On the Network Mangement block Only DHCP,SYSLOG,DNS, NefFlow and 192.168.12.0/24 (admin) traffic is allowed from outside-in
+On the Network Mangement block Only DHCP, SYSLOG, DNS, NefFlow and 192.168.12.0/24 (admin) traffic is allowed from outside-in
 
 ```bash
 FW-MANAGEMENT-ZONE#sh policy-map type inspect zone-pair Outside-Inside-zone
