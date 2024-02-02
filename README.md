@@ -118,6 +118,8 @@ Use of MD5 authentication, ensuring the integrity and authenticity of EIGRP mess
 
 Bandwidth optimization feature is employed to limit EIGRP bandwidth usage.
 
+The bandwidth metric (K3) is configured as the only metric to be used in path calculation.
+
 ```bash
 Sample config:
 
