@@ -1,3 +1,9 @@
+'''
+The script serves as a login mechanism before initiating any automated tasks. 
+This ensures that only authorized personnel with the correct credentials can execute automation scripts, 
+preventing unauthorized access and potential misuse.
+
+'''
 
 from rich import print as rp
 from getpass import getpass
