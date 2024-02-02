@@ -2,6 +2,7 @@
 # Campus-Network-Topology
 
 The following topology demonstrates a hierarchical network topology with a collapsed core while employing software-defined networking (Automation).
+
 The Branch networks are linked with a single-hub DMVPN for site-to-site VPN connectivity. 
 The network is also configured as BGP-AS-64511 as a non-transit Network, with ISPs only advertising a default route to the HQ site.
 
@@ -343,7 +344,8 @@ Extended IP access list Outside-Inside-acl
 ```
 ## Network monitoring:
 All Routers, Switches  are configured to send SNMP traps to the MGT server.
-The MGT server uses PRTG to solicit information via SNMP for general network monitoring, NetFlow for traffic analysis, and Syslog for the capture and analysis of system log data.**
+The MGT server uses PRTG to solicit information via SNMP for general network monitoring, NetFlow for traffic analysis, and Syslog for the capture and analysis of system log data.
+
 On ISP-SW1 and ISP-SW2, we've set up RSPAN to capture VPN traffic and SPAN to capture internet-bound traffic. 
 These configurations help monitor and secure the network. The captured data is sent to an Intrusion Detection System (IDS) for analysis. 
 This approach enhances our ability to detect and address potential security issues in both VPN and internet traffic.
