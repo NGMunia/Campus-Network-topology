@@ -161,6 +161,7 @@ Within the HQ's network architecture, BGP is implemented with a focus as a non-t
 In a non-transit scenario, the network primarily manages its own routes and communicates with external networks, but does not forward traffic on behalf of third-party networks.
 
 The design also involves the propagation of only a default BGP route to the Campus network from the ISPs.
+This reduces the size of the BGP routing table.
 
 
 To optimize the distribution of BGP traffic and ensure load-sharing, egress traffic is directed to exit through the Edge-1 router, by use of HSRPv2. 
