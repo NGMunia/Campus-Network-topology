@@ -296,7 +296,7 @@ env = Environment(loader=FileSystemLoader(template_dir))
 template = env.get_template(intf_template.j2)
 
 #Template Rendering:
-commands = template.render(data)
+commands = template.render(data.splitlines())
 ```
 
 With this now you can integrete with NetMiko to configure a device.

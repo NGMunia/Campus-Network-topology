@@ -39,7 +39,7 @@ for devices in Area_0.values():
 
 #VERIFYING HSRPv2 and VRRP
 rp('\n[cyan]----------Verifying HSRP on CORE switches and EDGE Routers---------[/cyan]')   
-for devices in Area_0.values(),Edge_routers.values(:
+for devices in chain(Area_0.values(),Edge_Routers.values()):
     c = ConnectHandler(**devices)
     c.enable()
     host  = c.send_command('show version', use_textfsm=True)[0]['hostname']
