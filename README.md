@@ -229,6 +229,9 @@ sudo apt-get install python3-pip
 
 # Install netmiko using pip
 pip install netmiko
+
+# Install Jinja2
+pip install jinja2
 ```
 
 Sample code snippet of getting Network device **running configuration** using Netmiko library:
@@ -246,6 +249,84 @@ c.enable()
 print(c.send_command('show run'))
 
 ```
+
+#### JINJA2
+
+
+Jinja2 is a templating engine that allows you to create dynamic templates with placeholders for variables.
+
+When combined with network automation tools like Netmiko Jinja2 helps streamline the configuration process for multiple devices.
+
+First, you'll create a Jinja2 template that contains placeholders for the variables you want to use.
+
+To define a variable in a Jinja2 template, you use the **{{ }} syntax**.
+
+Example: 
+```bash
+#Intf_template:
+  interface {{Interface_name}} 
+  Description {{Description}} 
+  ip address {{Address}} {{Netmask}} 
+  no shut
+```
+
+**Passing Data to the Template**
+
+When rendering a Jinja2 template, you provide a dictionary or an object containing the data you want to use for variable substitution.
+The keys in the dictionary correspond to the variable names in the template.
+
+Example:
+```python
+data = {
+        'interface':'e0/1',
+        'Description':'Connected to Core-SW-1',
+        'ip address':'192.168.1.1 255.255.255.0'
+       }
+```
+During template rendering, Jinja2 replaces the variables in the template with their corresponding values from the data dictionary.
+The Environment class in Jinja2 manages the template configurations, including:
+  * **_templates loading_**: It knows where to find your templates (templates directory)
+ * **_FileSystemLoader_** is a template loader in Jinja2 that loads templates from the file system. It searches for templates in a specified directory on the file system and loads them when requested.
+  * **_templates rendering_**: It knows how to take your templates and replace the placeholders with the actual values you provide in the data dictionary
+ 
+```python
+#Template Loading:
+template_dir = input('Input directory path:')
+env = Environment(loader=FileSystemLoader(template_dir))
+template = env.get_template(intf_template.j2)
+
+#Template Rendering:
+commands = template.render(data)
+```
+
+With this now you can integrete with NetMiko to configure a device.
+
+```python
+from jinja2 import Environment, FileSystemLoader
+from netmiko import ConnectHandler
+
+c = ConnectHandler(**Router)
+c.enable()
+
+#data
+data = {
+        'interface':'e0/1',
+        'Description':'Connected to Core-SW-1',
+        'ip address':'192.168.1.1 255.255.255.0'
+       }
+template_dir = input('Input directory path:')
+
+# Find the template directory and load the template "intf_template"
+env = Environment(loader=FileSystemLoader(template_dir))
+template = env.get_template(intf_template.j2)
+
+# Takes the template and replaces the placeholders with the actual data in the "data" dictionary
+commands = template.render(data)
+
+# send and print the commands to the Router using ConnectHandler
+print(c.send_config_set(commands))
+```
+
 
 ## VPN Services:
 DMVPN phase 2 with IPsec is used to secure communications between the HQ and the Branch spokes.
