@@ -26,7 +26,7 @@ Number of channel-groups in use: 2
 Number of aggregators:           2
 
 Group  Port-channel  Protocol    Ports
-------+-------------+-----------+-----------------------------------------------
+------+-------------+-----------+------------------------
 1      Po1(SU)         LACP      Et1/0(P)    Et1/1(P)
 2      Po2(SU)         LACP      Et1/2(P)    Et1/3(P)
 

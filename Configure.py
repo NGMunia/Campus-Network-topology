@@ -5,8 +5,8 @@ from jinja2 import FileSystemLoader, Environment
 from Network.Devices import Area_0, Firewalls, Edge_Routers, Spokes
 
 
-# Configuring Netflow:
-Template_dir =input('Jinja Templares Directory: ')
+# Configuring Netflow on Branch routers:
+Template_dir =input('Jinja Templates Directory filepath: ')
 for devices in Spokes.values():
     c = ConnectHandler(**devices)
     c.enable()
@@ -27,7 +27,7 @@ for devices in Spokes.values():
     env = Environment(loader=FileSystemLoader(Template_dir))
     template = env.get_template('NetFlow.j2')
 
-# Placing he actual data on the template
+# Placing the actual data on the template
     commands = template.render(data)
 
 # Sending the commands to devices
