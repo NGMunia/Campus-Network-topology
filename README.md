@@ -270,7 +270,7 @@ Example:
   no shut
 ```
 
-**Passing Data to the Template**
+**Parsing Data to the Template**
 
 When rendering a Jinja2 template, you provide a dictionary or an object containing the data you want to use for variable substitution.
 The keys in the dictionary correspond to the variable names in the template.
