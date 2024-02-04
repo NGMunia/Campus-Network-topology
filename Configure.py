@@ -6,8 +6,11 @@ from jinja2 import FileSystemLoader, Environment
 from Network.Devices import Area_0, Firewalls, Edge_Routers, Spokes, Switches
 
 
-# Configuring Netflow on Branch routers:
+# Jinja Templates Directory filepath:
 Template_dir =input('Jinja Templates Directory filepath: ')
+
+
+# Configuring Netflow on Branch routers:
 rp(f'[bold cyan]----------Configuring NetFlow----------[/cyan]')
 for devices in Spokes.values():
     c = ConnectHandler(**devices)
@@ -32,7 +35,7 @@ for devices in Spokes.values():
 
 
 # Configuring NTP
-rp(f'\n[bold cyan]----------Configuring NTP on Routers, Firewalls and Core switches----------[/bold cyan]')
+rp(f'\n[bold cyan]----------Configuring NTP on Network Devices---------[/bold cyan]')
 for devices in chain(Area_0.values(), Firewalls.values(), Edge_Routers.values(),
                      Spokes.values(),Switches.values()):
     c = ConnectHandler(**devices)
