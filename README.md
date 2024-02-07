@@ -356,6 +356,8 @@ dst             src             state          conn-id status
 ```
 
 ## Network Security:
+
+**Zone-Based Firewalls**
 Zone-based firewall services are configured on the Edge-Firewall (FW-EDGE) with stateful traffic inspection from Inside(Private network) to the Internet.
 ```bash
 FIREWALL-EDGE#sh policy-map type inspect zone-pair private-Internet-zone
@@ -429,6 +431,54 @@ Extended IP access list Outside-Inside-acl
     50 permit udp any host 192.168.20.254 eq domain
 
 ```
+
+**Control plane Policing (CoPP)**
+
+CoPP is a security feature that protects the control plane of a router from unnecessary or Denial-of-Service (DoS) traffic12. 
+It ensures routing stability, reachability, and packet delivery by providing filtering and rate-limiting capabilities for the control plane packets.
+
+CoPP utilizes the MQC model similar to QOS in its implementation.
+It allows for the classification, marking, and policing of traffic based on various criteria.
+In the context of CoPP, the MQC model is used to define policies that control the traffic directed towards the control plane of the router or switch
+
+Control plane traffic may be but not limited to Routing protcols, ICMP traffic, NAT, IPSec
+
+In this topology, COPP is configured on core (OSPF, ICMP, SSH traffic) and Edge routers (BGP, ICMP and SSH traffic).
+
+```bash
+EDGE-ROUTER-1#sh policy-map control-plane
+ Control Plane
+
+  Service-policy input: CoPP-policy
+
+    Class-map: ICMP-traffic-class (match-all)
+      170 packets, 19260 bytes
+      5 minute offered rate 2000 bps, drop rate 0000 bps
+      Match: access-group name ICMP-traffic
+      police:
+          cir 8000 bps, bc 1500 bytes
+        conformed 159 packets, 17962 bytes; actions:
+          transmit
+        exceeded 11 packets, 1298 bytes; actions:
+          drop
+        conformed 2000 bps, exceeded 0000 bps
+
+    Class-map: Routing-Protocol-class (match-all)
+      14 packets, 1017 bytes
+      5 minute offered rate 0000 bps, drop rate 0000 bps
+      Match: access-group name Routing-Protocol-acl
+      police:
+          cir 128000 bps, bc 4000 bytes, be 4000 bytes
+        conformed 14 packets, 1017 bytes; actions:
+          transmit
+        exceeded 0 packets, 0 bytes; actions:
+          transmit
+        violated 0 packets, 0 bytes; actions:
+          transmit
+        conformed 0000 bps, exceeded 0000 bps, violated 0000 bps
+
+```
+
 ## Network monitoring:
 All Routers, Switches  are configured to send SNMP traps to the MGT server.
 The MGT server uses PRTG to solicit information via SNMP for general network monitoring, NetFlow for traffic analysis, and Syslog for the capture and analysis of system log data.

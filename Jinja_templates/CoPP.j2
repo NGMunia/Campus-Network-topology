@@ -1,0 +1,39 @@
+
+
+{% if eigrp_enabled == 'Y' and ospf_enabled == 'N' %}
+  ip access-list extended Routing-Protocol-acl
+  permit eigrp any host 224.0.0.10
+{% elif ospf_enabled == 'Y' and eigrp_enabled == 'N' %}
+  ip access-list extended Routing-Protocol-acl
+  permit ospf any host 224.0.0.5
+{% elif eigrp_enabled =='Y' and ospf_enabled == 'Y' %}
+  ip access-list extended Routing-Protocol-acl
+  permit eigrp any host 224.0.0.10
+  permit ospf any host 224.0.0.5
+{% else %}
+  ip access-list extended Routing-Protocol-acl
+  permit tcp any any eq bgp
+{% endif %}
+ip access-list extended ICMP-traffic
+  permit icmp any any
+ip access-list extended Management-traffic-acl
+  permit tcp any any eq 22
+  permit udp any any eq 161
+  permit udp any any eq 162
+class-map match-all Routing-Protocol-class
+  match access-group name Routing-Protocol-acl
+class-map match-all ICMP-traffic-class
+  match access-group name ICMP-traffic
+class-map match-all Management-traffic-class
+  match access-group name Management-traffic-acl
+policy-map CoPP-policy
+  class ICMP-traffic-class
+    police cir 8k conform-action transmit exceed-action drop
+  class Routing-Protocol-class
+    police cir 128K conform-action transmit exceed-action transmit violate-action transmit
+  class Management-traffic-class
+    police cir 256k conform-action transmit exceed-action transmit violate-action transmit
+control-plane
+  service-policy input CoPP-policy
+  end
+

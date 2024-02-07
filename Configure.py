@@ -55,3 +55,22 @@ for devices in chain(Area_0.values(), Firewalls.values(), Edge_Routers.values(),
     c.save_config()
     c.disconnect()
 
+
+#Configuring CoPP
+rp(f'\n[bold cyan]----------Configuring CoPP Core and DMVPN Routers---------[/bold cyan]')
+for devices in Area_0.values():
+    c = ConnectHandler(**devices)
+    c.enable()
+    host  = c.send_command('show version', use_textfsm=True)[0]['hostname']
+    eigrp_enabled = input(f'Is EIGRP protocol Running on {host} (Y/N): ')
+    ospf_enabled = input(f'Is OSPF protocol Running on {host} (Y/N): ')
+    data = {
+            'eigrp_enabled': eigrp_enabled,
+            'ospf_enabled': ospf_enabled
+           }
+    env = Environment(loader=FileSystemLoader(Template_dir))
+    template = env.get_template('CoPP.j2')
+    commands = template.render(data)
+    rp(c.send_config_set(commands.splitlines()),'\n')
+    c.save_config()
+    c.disconnect()
