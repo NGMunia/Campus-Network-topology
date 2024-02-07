@@ -434,7 +434,7 @@ Extended IP access list Outside-Inside-acl
 
 **Control plane Policing (CoPP)**
 
-CoPP is a security feature that protects the control plane of a router from unnecessary or Denial-of-Service (DoS) traffic12. 
+CoPP is a security feature that protects the control plane of a router from unnecessary or Denial-of-Service (DoS) traffic. 
 It ensures routing stability, reachability, and packet delivery by providing filtering and rate-limiting capabilities for the control plane packets.
 
 CoPP utilizes the MQC model similar to QOS in its implementation.
