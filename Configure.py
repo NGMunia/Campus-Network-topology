@@ -57,8 +57,8 @@ for devices in chain(Area_0.values(), Firewalls.values(), Edge_Routers.values(),
 
 
 #Configuring CoPP
-rp(f'\n[bold cyan]----------Configuring CoPP Core and DMVPN Routers---------[/bold cyan]')
-for devices in Area_0.values():
+rp(f'\n[bold cyan]----------Configuring Edge Routers---------[/bold cyan]')
+for devices in Edge_Routers.values():
     c = ConnectHandler(**devices)
     c.enable()
     host  = c.send_command('show version', use_textfsm=True)[0]['hostname']
