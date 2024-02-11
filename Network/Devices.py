@@ -122,5 +122,12 @@ Switches= {
                       'secret': Secret,
                       'password': Password,
                       'ip':'10.1.20.10'
-                    }
+                    },
+         'SW-SERV': {
+                      'device_type':'cisco_ios',
+                      'username': Username,
+                      'secret': Secret,
+                      'password': Password,
+                      'ip':'192.168.12.253'
+                    },         
           }
