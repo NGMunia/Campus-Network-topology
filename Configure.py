@@ -2,8 +2,10 @@
 from netmiko import ConnectHandler
 from itertools import chain
 from rich import print as rp
+from rich.prompt import Prompt
 from jinja2 import FileSystemLoader, Environment
 from Network.Devices import Area_0, Firewalls, Edge_Routers, Spokes, Switches
+
 
 
 # Jinja Templates Directory filepath:
@@ -92,4 +94,26 @@ for devices in chain(Area_0.values(), Firewalls.values(),
     c.disconnect()
 
 
+
+# Configure EEM
+rp(f'\n[bold cyan]----------Configuring Embedded Event Manager--------[/bold cyan]')
+Server_IP = Prompt.ask("[bright_magenta]IP address of the TFTP server: [/]")
+for devices in chain(Area_0.values(), Firewalls.values(), 
+                     Edge_Routers.values(),Switches.values(), Spokes.values()):
+    c = ConnectHandler(**devices)
+    c.enable()
+    host  = c.send_command('show version', use_textfsm=True)[0]['hostname']
+
+    Config_filename = Prompt.ask(f'[magenta]Name of the configuration file for host {host} (with .txt extension): [/]')
+
+    data = {
+            'Server_IP': Server_IP,
+            'Config_filename': Config_filename
+           }
+    env = Environment(loader=FileSystemLoader(Template_dir))
+    template = env.get_template('EEM.j2')
+    commands = template.render(data)
+    rp(c.send_config_set(commands.splitlines()),'\n')
+    c.save_config()
+    c.disconnect()
 

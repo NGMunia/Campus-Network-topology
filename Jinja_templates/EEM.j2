@@ -1,0 +1,12 @@
+
+event manager environment tftpserver tftp://{{Server_IP}}/
+event manager environment filename {{Config_filename}}
+event manager applet Automatic_Backup_Config
+event timer cron cron-entry "30 14 * * 1-6"
+action 1.0 cli command "enable"
+action 1.1 cli command "debug event manager action cli"
+action 1.2 cli command "conf t"
+action 1.3 cli command "file prompt quiet"
+action 1.4 cli command "do copy start $tftpserver$filename"
+action 1.5 cli command "no file prompt quiet"
+action 1.6 syslog priority informational msg "TFTP backup successful"

@@ -327,6 +327,25 @@ commands = template.render(data)
 print(c.send_config_set(commands))
 ```
 
+### Automating Backup using EEM
+Embedded event manager can be used to automate network devices' tasks.
+In this case, EEM is used to automate backup of start-up configs on a scheduled basis; every Mon to Sat
+at 1430hrs.
+
+```bash
+event manager environment tftpserver tftp://192.168.12.100/
+event manager environment filename SW_BR_2.txt
+event manager applet Automatic_Backup_Config
+ event timer cron cron-entry "30 14 * * 1-6"
+ action 1.0 cli command "enable"
+ action 1.1 cli command "debug event manager action cli"
+ action 1.2 cli command "conf t"
+ action 1.3 cli command "file prompt quiet"
+ action 1.4 cli command "do copy start $tftpserver$filename"
+ action 1.5 cli command "no file prompt quiet"
+ action 1.6 syslog priority informational msg "TFTP backup successful"
+```
+
 
 ## VPN Services:
 DMVPN phase 2 with IPsec is used to secure communications between the HQ and the Branch spokes.
