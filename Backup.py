@@ -3,7 +3,6 @@ from netmiko import ConnectHandler
 from itertools import chain
 from rich import print as rp
 from rich.prompt import Prompt
-from jinja2 import FileSystemLoader, Environment
 from Network.Devices import Area_0, Firewalls, Edge_Routers, Spokes, Switches
 from csv import writer
 
@@ -11,7 +10,7 @@ from csv import writer
 
 # RUNNING CONFIGS
 rp('[bold cyan]----------Backing Up configurations---------[/bold cyan]')
-filepath = input('Running-configs filepath: ')
+filepath = Prompt.ask('[bright_magenta]Running-configs filepath [/]')
 for devices in chain(Area_0.values(), Firewalls.values(), 
                      Edge_Routers.values(), Spokes.values(), Switches.values()):
     c = ConnectHandler(**devices)
@@ -26,8 +25,8 @@ for devices in chain(Area_0.values(), Firewalls.values(),
 
 
 # Devices' Inventory
-rp('[cyan]----------Device Inventory----------[/cyan]')
-filepath = input('Inventory filepath: ')
+rp('\n[bold cyan]----------Device Inventory----------[/bold cyan]')
+filepath = Prompt.ask('[bright_magenta]Inventory filepath [/]')
 with open (f'{filepath}/Data.csv', 'w')as f:
     write_data = writer(f)
     write_data.writerow(['Hostname','IP address','Software Image','Version','Serial number'])
@@ -46,5 +45,3 @@ with open (f'{filepath}/Data.csv', 'w')as f:
         write_data.writerow([hostname,ip_addr,image,version,serial])
         rp(f'Finished taking {hostname} Inventory')
         c.disconnect()
-
-
