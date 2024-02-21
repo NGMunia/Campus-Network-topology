@@ -504,10 +504,9 @@ However, Firewall and QoS polices are similar across the branch routers for a un
 Scavenger traffic (torrents and leisure streaming platforms) is dropped.
 Social media traffic is policed to 512Kbps.
 
-'''bash
+```bash
 BRANCH-A-ROUTER-1#sh policy-map interface e0/0.10
  Ethernet0/0.10 
-
   Service-policy input: Internet-Policy
 
     Class-map: Scavenger-class (match-any)  
@@ -520,7 +519,6 @@ BRANCH-A-ROUTER-1#sh policy-map interface e0/0.10
         0 packets, 0 bytes
         5 minute rate 0 bps
       drop
-
     Class-map: Social-media-class (match-any)  
       1936 packets, 160233 bytes
       5 minute offered rate 0000 bps, drop rate 0000 bps
