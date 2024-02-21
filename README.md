@@ -572,7 +572,7 @@ Sample SNMP config:
   snmp-server enable traps config
   snmp-server host 192.168.20.254 version 2c device_snmp
 ```
-Other monitoring configs include SNMP and NetFlow
+
 
 
 ## GNS3 Images used:
