@@ -448,7 +448,6 @@ Extended IP access list Outside-Inside-acl
     30 permit udp any host 192.168.20.254 eq bootps
     40 permit ip 192.168.12.0 0.0.0.255 192.168.20.0 0.0.0.255
     50 permit udp any host 192.168.20.254 eq domain
-
 ```
 
 **Control plane Policing (CoPP)**
@@ -495,10 +494,54 @@ EDGE-ROUTER-1#sh policy-map control-plane
         violated 0 packets, 0 bytes; actions:
           transmit
         conformed 0000 bps, exceeded 0000 bps, violated 0000 bps
-
 ```
 
-## Network monitoring:
+## NAT and Quality of Service
+Branch Officies' routers are configured with NAT to have internet connection rather than having traffic backhauled to HQ.
+However, Firewall and QoS polices are similar across the branch routers for a uniform Internet policy.
+
+Scavenger traffic (torrents and leisure streaming platforms) is dropped.
+Social media traffic is policed to 512Kbps.
+
+'''bash
+BRANCH-A-ROUTER-1#sh policy-map interface e0/0.10
+ Ethernet0/0.10 
+
+  Service-policy input: Internet-Policy
+
+    Class-map: Scavenger-class (match-any)  
+      77 packets, 31359 bytes
+      5 minute offered rate 0000 bps, drop rate 0000 bps
+      Match: protocol netflix
+        77 packets, 31359 bytes
+        5 minute rate 0 bps
+      Match: protocol bittorrent
+        0 packets, 0 bytes
+        5 minute rate 0 bps
+      drop
+
+    Class-map: Social-media-class (match-any)  
+      1936 packets, 160233 bytes
+      5 minute offered rate 0000 bps, drop rate 0000 bps
+      Match: protocol facebook
+        0 packets, 0 bytes
+        5 minute rate 0 bps
+      Match: protocol twitter
+        1936 packets, 160233 bytes
+        5 minute rate 0 bps
+      Match: protocol instagram
+        0 packets, 0 bytes
+        5 minute rate 0 bps
+      police:
+          cir 512000 bps, bc 16000 bytes
+        conformed 1936 packets, 160233 bytes; actions:
+          transmit 
+        exceeded 0 packets, 0 bytes; actions:
+          drop 
+        conformed 0000 bps, exceeded 0000 bps
+```
+
+## Network Monitoring
 All Routers, Switches  are configured to send SNMP traps to the MGT server.
 The MGT server uses PRTG to solicit information via SNMP for general network monitoring, NetFlow for traffic analysis, and Syslog for the capture and analysis of system log data.
 
@@ -530,6 +573,7 @@ Sample SNMP config:
   snmp-server enable traps config
   snmp-server host 192.168.20.254 version 2c device_snmp
 ```
+Other monitoring configs include SNMP and NetFlow
 
 
 ## GNS3 Images used:

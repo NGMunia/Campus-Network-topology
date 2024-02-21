@@ -24,7 +24,7 @@ for devices in chain(Area_0.values(), Firewalls.values(),
 
 
 
-# Devices' Inventory
+# DEVICES' INVENTORY
 rp('\n[bold cyan]----------Device Inventory----------[/bold cyan]')
 filepath = Prompt.ask('[bright_magenta]Inventory filepath [/]')
 with open (f'{filepath}/Data.csv', 'w')as f:

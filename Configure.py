@@ -22,7 +22,6 @@ for devices in Spokes.values():
     server = input('IP address of the Flow Collector: ')
     interface = input(f'{host} Netflow source interface: ')
     Port = input(f'{host} Netflow UDP-Port: ')
-
     data = {
             'Flow_Interface': interface,
             'UDP_Port': Port,
@@ -45,7 +44,6 @@ for devices in chain(Area_0.values(), Firewalls.values(), Edge_Routers.values(),
     host  = c.send_command('show version', use_textfsm=True)[0]['hostname']
     ntp = input(f'NTP server IP for host  {host}: ')
     source = input(f'{host} NTP source interface: ')
-
     data = {
             'ntp_server': ntp,
             'source_intf': source
@@ -103,9 +101,7 @@ for devices in chain(Area_0.values(), Firewalls.values(),
     c = ConnectHandler(**devices)
     c.enable()
     host  = c.send_command('show version', use_textfsm=True)[0]['hostname']
-
     Config_filename = Prompt.ask(f'[magenta]Name of the configuration file for host {host} (with .txt extension): [/]')
-
     data = {
             'Server_IP': Server_IP,
             'Config_filename': Config_filename
