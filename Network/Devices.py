@@ -8,32 +8,28 @@ Spokes  =  {
                       'username': Username,
                       'secret': Secret,
                       'password': Password,
-                      'ip':'10.1.10.1',
-                      'ip':'10.1.11.1'
+                      'ip':'172.20.0.2'
                     },
             'BR-A2':{
                       'device_type':'cisco_ios',
                       'username': Username,
                       'secret': Secret,
                       'password': Password,
-                      'ip':'10.1.10.2',
-                      'ip':'10.1.11.2'
+                      'ip':'172.20.0.3'
                     },
             'BR-B1':{
                       'device_type':'cisco_ios',
                       'username': Username,
                       'secret': Secret,
                       'password': Password,
-                      'ip':'10.1.20.1',
-                      'ip':'10.1.21.1'
+                      'ip':'172.20.0.4'
                     },
             'BR-B2':{
                       'device_type':'cisco_ios',
                       'username': Username,
                       'secret': Secret,
                       'password': Password,
-                      'ip':'10.1.20.2',
-                      'ip':'10.1.21.2'
+                      'ip':'172.20.0.5'
                     }
             }
 Area_0 =  {
@@ -56,8 +52,7 @@ Area_0 =  {
                       'username': Username,
                       'secret': Secret,
                       'password': Password,
-                      'ip':'10.0.0.2',
-                      'ip':'10.0.0.6'
+                      'ip':'172.20.0.1'
                     }
           }
 
@@ -75,6 +70,13 @@ Firewalls=    {
                       'secret': Secret,
                       'password': Password,
                       'ip':'192.168.20.1'
+                   },
+        'FW-DMZ':  {
+                      'device_type':'cisco_ios',
+                      'username': Username,
+                      'secret': Secret,
+                      'password': Password,
+                      'ip':'192.168.50.1'
                    }
           }
 
@@ -129,5 +131,5 @@ Switches= {
                       'secret': Secret,
                       'password': Password,
                       'ip':'192.168.12.253'
-                    },         
+                    }       
           }

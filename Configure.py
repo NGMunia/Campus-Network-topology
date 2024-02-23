@@ -37,8 +37,7 @@ for devices in Spokes.values():
 
 # Configuring NTP
 rp(f'\n[bold cyan]----------Configuring NTP on Network Devices---------[/bold cyan]')
-for devices in chain(Area_0.values(), Firewalls.values(), Edge_Routers.values(),
-                     Spokes.values(),Switches.values()):
+for devices in chain(Firewalls.values(), Area_0.values(), Spokes.values(),Edge_Routers.values(),Switches.values()):
     c = ConnectHandler(**devices)
     c.enable()
     host  = c.send_command('show version', use_textfsm=True)[0]['hostname']
@@ -58,7 +57,7 @@ for devices in chain(Area_0.values(), Firewalls.values(), Edge_Routers.values(),
 
 #Configuring CoPP
 rp(f'\n[bold cyan]----------Configuring Edge Routers---------[/bold cyan]')
-for devices in Edge_Routers.values():
+for devices in chain(Firewalls.values(), Area_0.values(), Spokes.values(),Edge_Routers.values(),Switches.values()):
     c = ConnectHandler(**devices)
     c.enable()
     host  = c.send_command('show version', use_textfsm=True)[0]['hostname']
@@ -78,8 +77,7 @@ for devices in Edge_Routers.values():
 
 # Configure Syslog
 rp(f'\n[bold cyan]----------Configuring Syslog---------[/bold cyan]')
-for devices in chain(Area_0.values(), Firewalls.values(), 
-                     Edge_Routers.values(), Spokes.values(), Switches.values()):
+for devices in chain(Area_0.values(), Firewalls.values(),Edge_Routers.values(), Spokes.values(), Switches.values()):
     c = ConnectHandler(**devices)
     c.enable()
     host  = c.send_command('show version', use_textfsm=True)[0]['hostname']
@@ -93,11 +91,28 @@ for devices in chain(Area_0.values(), Firewalls.values(),
 
 
 
+rp('[cyan]----------Configuring MOTD banner---------[/cyan]')
+for devices in chain(Area_0.values(), Firewalls.values(),Edge_Routers.values(), Spokes.values(), Switches.values()):
+    c = ConnectHandler(**devices)
+    c.enable()
+    host = c.send_command('show version',use_textfsm=True)[0]['hostname']
+    commands = [
+                'banner login @',
+               f'{"*"*50}',
+               f'{" "*13}{host}',
+               f'{" "*5}Configured using CLI and Python',
+               f'{" "}Unauthorized access is strictly forbidden',
+               f'{"*"*50}',
+               '@']
+    rp(c.send_config_set(commands),'\n')
+    c.save_config()
+    c.disconnect()
+
+
 # Configure EEM
 rp(f'\n[bold cyan]----------Configuring Embedded Event Manager--------[/bold cyan]')
 Server_IP = Prompt.ask("[bright_magenta]IP address of the TFTP server: [/]")
-for devices in chain(Area_0.values(), Firewalls.values(), 
-                     Edge_Routers.values(),Switches.values(), Spokes.values()):
+for devices in chain(Area_0.values(), Firewalls.values(),Edge_Routers.values(), Spokes.values(), Switches.values()):
     c = ConnectHandler(**devices)
     c.enable()
     host  = c.send_command('show version', use_textfsm=True)[0]['hostname']
