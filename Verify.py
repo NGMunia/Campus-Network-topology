@@ -75,7 +75,7 @@ for devices in Edge_Routers.values():
     c.enable()
     host  = c.send_command('show version', use_textfsm=True)[0]['hostname']
     output = c.send_command('show ip bgp')
-#     rp(host,output, sep='\n')
+    rp(host,output, sep='\n')
 
 
 
