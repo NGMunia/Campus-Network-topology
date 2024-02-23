@@ -28,6 +28,17 @@ for devices in Area_0.values():
 
 
 
+# VERIFYING VLANS on ACCESS SWITCHES:
+rp('\n[bold cyan]----------Verifying VLANs---------[/bold cyan]')
+for devices in Switches.values():
+    c = ConnectHandler(**devices)
+    c.enable()
+    host  = c.send_command('show version', use_textfsm=True)[0]['hostname']
+    output = c.send_command('show vlan brief', use_textfsm=True)
+    rp(host,output, sep='\n')
+
+
+
 # VERIFYING HSRPv2 and VRRP
 rp('\n[bold cyan]----------Verifying HSRPv2 on Edge_Routers and And Core Switches---------[/bold cyan]')    
 for devices in chain(Area_0.values(),Edge_Routers.values()):
@@ -64,7 +75,7 @@ for devices in Edge_Routers.values():
     c.enable()
     host  = c.send_command('show version', use_textfsm=True)[0]['hostname']
     output = c.send_command('show ip bgp')
-    rp(host,output, sep='\n')
+#     rp(host,output, sep='\n')
 
 
 
