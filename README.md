@@ -541,6 +541,7 @@ BRANCH-A-ROUTER-1#sh policy-map interface e0/0.10
 ```
 
 **mGRE tunnel OoS**
+
 Per Tunnel QOS is implemented to give priority to voice traffic 10% bandwidth and 20% CBWFQ for network management traffic (SNMP, SYSLOG)
 
 NHRP group configured '*NHRP-20MBPS*' for spokes with 20Mbps internet(tunnel interface) and '*NHRP-10MBPS*' for spokes with
