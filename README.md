@@ -540,6 +540,73 @@ BRANCH-A-ROUTER-1#sh policy-map interface e0/0.10
         conformed 0000 bps, exceeded 0000 bps
 ```
 
+**mGRE tunnel OoS**
+Per Tunnel QOS is implemented to give priority to voice traffic 10% bandwidth and 20% CBWFQ for network management traffic (SNMP, SYSLOG)
+
+NHRP group configured '*NHRP-20MBPS*' for spokes with 20Mbps internet(tunnel interface) and '*NHRP-10MBPS*' for spokes with
+10Mbps internet (tunnel interfaces)
+
+This can be verified on the Hub router below for spoke BR-A1 at 20Mbps CIR:
+```bash
+
+DMVPN-HUB-ROUTER#sh policy-map multipoint 
+ 
+Interface Tunnel10 <--> 44.67.28.6 
+
+  Service-policy output: 20MBPS-Tunnel-Policy
+
+    Class-map: class-default (match-any)  
+      1596 packets, 179136 bytes
+      5 minute offered rate 0000 bps, drop rate 0000 bps
+      Match: any 
+      Queueing
+      queue limit 2500 packets
+      (queue depth/total drops/no-buffer drops) 0/0/0
+      (pkts output/bytes output) 1596/285336
+      shape (average) cir 20000000, bc 80000, be 80000
+      target shape rate 20000000
+
+      Service-policy : 20MBPS-child-policy
+
+        queue stats for all priority classes:
+          Queueing
+          queue limit 250 packets
+          (queue depth/total drops/no-buffer drops) 0/0/0
+          (pkts output/bytes output) 0/0
+
+        Class-map: Network-Management-class (match-any)  
+          335 packets, 41206 bytes
+          5 minute offered rate 0000 bps, drop rate 0000 bps
+          Match: protocol snmp
+            255 packets, 33014 bytes
+            5 minute rate 0 bps
+          Match: protocol syslog
+            0 packets, 0 bytes
+            5 minute rate 0 bps
+          Match: protocol ssh
+            80 packets, 8192 bytes
+            5 minute rate 0 bps
+          Match:  dscp cs2 (16)
+            0 packets, 0 bytes
+            5 minute rate 0 bps
+          Queueing
+          queue limit 500 packets
+          (queue depth/total drops/no-buffer drops) 0/0/0
+          (pkts output/bytes output) 335/64578
+          bandwidth 20% (2000 kbps)
+          
+        Class-map: Voice-class (match-any)  
+          0 packets, 0 bytes
+          5 minute offered rate 0000 bps, drop rate 0000 bps
+          Match: protocol rtp-audio
+            0 packets, 0 bytes
+            5 minute rate 0 bps
+          Match:  dscp ef (46)
+            0 packets, 0 bytes
+            5 minute rate 0 bps
+          Priority: 10% (1000 kbps), burst bytes 25000, b/w exceed drops: 0
+```
+
 ## Network Monitoring
 All Routers, Switches  are configured to send SNMP traps to the MGT server.
 The MGT server uses PRTG to solicit information via SNMP for general network monitoring, NetFlow for traffic analysis, and Syslog for the capture and analysis of system log data.
