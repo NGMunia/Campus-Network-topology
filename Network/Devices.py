@@ -30,7 +30,15 @@ Spokes  =  {
                       'secret': Secret,
                       'password': Password,
                       'ip':'172.20.0.5'
-                    }
+                    },
+            
+             'BR-C':{
+                      'device_type':'cisco_ios',
+                      'username': Username,
+                      'secret': Secret,
+                      'password': Password,
+                      'ip':'172.20.0.7'
+                    }         
             }
 Area_0 =  {
           'CORE-1': {
@@ -131,5 +139,19 @@ Switches= {
                       'secret': Secret,
                       'password': Password,
                       'ip':'192.168.12.253'
-                    }       
+                    },
+        'SW1-Edge': {
+                      'device_type':'cisco_ios',
+                      'username': Username,
+                      'secret': Secret,
+                      'password': Password,
+                      'ip':'10.0.50.10'
+                    },
+        'SW2-Edge': {
+                      'device_type':'cisco_ios',
+                      'username': Username,
+                      'secret': Secret,
+                      'password': Password,
+                      'ip':'10.0.50.11'
+                    }               
           }
