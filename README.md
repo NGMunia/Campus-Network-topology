@@ -378,6 +378,7 @@ dst             src             state          conn-id status
 ## Network Security:
 
 **Zone-Based Firewalls**
+
 Zone-based firewall services are configured on the Edge-Firewall (FW-EDGE) with stateful traffic inspection from Inside(Private network) to the Internet.
 ```bash
 FIREWALL-EDGE#sh policy-map type inspect zone-pair private-Internet-zone
