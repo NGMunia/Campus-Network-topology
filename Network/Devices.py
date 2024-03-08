@@ -112,12 +112,19 @@ Switches= {
                       'password': Password,
                       'ip':'192.168.20.10'
                     },
-          'ACC-SW': {
+        'SW-BLD-1': {
                       'device_type':'cisco_ios',
                       'username': Username,
                       'secret': Secret,
                       'password': Password,
                       'ip':'192.168.12.10'
+                    },
+        'SW-BLD-2': {
+                      'device_type':'cisco_ios',
+                      'username': Username,
+                      'secret': Secret,
+                      'password': Password,
+                      'ip':'192.168.12.11'
                     },
           'SW-BR1': {
                       'device_type':'cisco_ios',
