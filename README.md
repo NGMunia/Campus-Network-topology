@@ -153,6 +153,50 @@ router eigrp EIGRP
  exit-address-family
 ```
 
+**Multicast  PIM-sparse-mode**
+
+The media server is used to send multicast traffic to branch router by use of PIM sparse mode.
+
+The DMVPN hub acts as the Rendesvous point.
+
+The firewall DMZ is configured with .50 encapsulation on E0/3 for VLAN 50 to carry multicast traffic and forms EIGRP neighborship with the Hub on this trunk link (VLAN 50)
+
+To verify Multicast routing:
+
+```bash
+Media-server#ping 239.1.1.50 source 192.168.50.254
+Type escape sequence to abort.
+Sending 1, 100-byte ICMP Echos to 239.1.1.50, timeout is 2 seconds:
+Packet sent with a source address of 192.168.50.254
+
+Reply to request 0 from 10.1.21.2, 23 ms
+Reply to request 0 from 10.1.10.1, 24 ms
+```
+
+The multicast routing table can be verified on the Hub router:
+```bash
+DMVPN-HUB-ROUTER#sh ip mroute
+Outgoing interface flags: H - Hardware switched, A - Assert winner, p - PIM Join
+ Timers: Uptime/Expires
+ Interface state: Interface, Next-Hop or VCD, State/Mode
+
+(*, 239.1.1.50), 00:13:54/00:03:20, RP 172.20.0.1, flags: S
+  Incoming interface: Null, RPF nbr 0.0.0.0
+  Outgoing interface list:
+    Tunnel10, Forward/Sparse, 00:13:54/00:03:20
+
+(192.168.50.254, 239.1.1.50), 00:01:30/00:02:23, flags: T
+  Incoming interface: Ethernet0/3.50, RPF nbr 10.0.50.2
+  Outgoing interface list:
+    Tunnel10, Forward/Sparse, 00:01:30/00:03:20
+
+(*, 224.0.1.40), 00:15:20/00:03:21, RP 172.20.0.1, flags: SJCL
+  Incoming interface: Null, RPF nbr 0.0.0.0
+  Outgoing interface list:
+    Tunnel10, Forward/Sparse, 00:13:55/00:03:21
+    Ethernet0/3.50, Forward/Sparse, 00:15:19/00:02:42
+```
+
 
 **BGP**:
 
