@@ -34,18 +34,18 @@ Group  Port-channel  Protocol    Ports
 
 **Rapid PVST+ and Load balancing**:
 
-CORE-SW-1 acts as the root bridge for both VLAN-10 and VLAN-11 traffic and CORE-SW-2 acts as the root bridge for VLAN-12.
+CORE-SW-1 acts as the root bridge for both VLAN-10 and VLAN-12 traffic and CORE-SW-2 acts as the root bridge for VLAN-11.
 
 Porfast and BPDUguard features are enabled on all access switchports.
 
 ``` bash
-CORE-SWITCH-1#sh spanning-tree summary totals
+CORE-SWITCH-1#sh spanning-tree summary totals 
 Switch is in rapid-pvst mode
-Root bridge for: VLAN0001, VLAN0010-VLAN0011
+Root bridge for: VLAN0001, VLAN0010, VLAN0012
 
-CORE-SWITCH-2#sh spanning-tree summary totals
+CORE-SWITCH-2#sh spanning-tree summary totals 
 Switch is in rapid-pvst mode
-Root bridge for: VLAN0012
+Root bridge for: VLAN0001, VLAN0011
 ```
 
 
