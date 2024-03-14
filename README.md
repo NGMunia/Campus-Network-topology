@@ -240,20 +240,32 @@ The EIGRP Add-path feature enables redundant prefix advertisement for 10.1.10.0/
 ```bash
 
 BRANCH-A-ROUTER-1#sh ip route eigrp
-      10.0.0.0/8 is variably subnetted, 6 subnets, 3 masks
-D        10.1.10.0/23 is a summary, 00:00:17, Null0
-D        10.1.20.0/23 [90/522240] via 172.20.0.5, 00:00:20, Tunnel10
-                      [90/522240] via 172.20.0.4, 00:00:20, Tunnel10
-D EX  192.168.12.0/24 [170/56320] via 172.20.0.1, 00:00:12, Tunnel10
-D EX  192.168.20.0/24 [170/56320] via 172.20.0.1, 00:00:12, Tunnel10
+D        10.0.50.0/24 [90/517120] via 172.20.0.1, 00:00:27, Tunnel10
+D        10.1.10.0/23 is a summary, 00:00:27, Null0
+D        10.1.20.0/23 [90/522240] via 172.20.0.5, 00:00:27, Tunnel10
+                      [90/522240] via 172.20.0.4, 00:00:27, Tunnel10
+D        10.1.30.0/24 [90/522240] via 172.20.0.7, 00:00:27, Tunnel10
+D EX  192.168.20.0/24 [170/56320] via 172.20.0.1, 00:00:27, Tunnel10
+D     192.168.50.0/24 [90/1029120] via 172.20.0.1, 00:00:27, Tunnel10
+
 
 
 FW-MANAGEMENT-ZONE#sh ip route ospf
 
-O E2     10.1.10.0/23 [110/20] via 10.0.20.5, 02:26:20, Ethernet0/3
-                      [110/20] via 10.0.20.1, 02:26:16, Ethernet0/2
-O E2     10.1.20.0/23 [110/20] via 10.0.20.5, 02:26:10, Ethernet0/3
-                      [110/20] via 10.0.20.1, 02:26:12, Ethernet0/2
+O E2     10.0.50.0/24 [110/20] via 10.0.20.5, 01:21:41, Ethernet0/3
+                      [110/20] via 10.0.20.1, 01:21:41, Ethernet0/2
+O E2     10.1.10.0/23 [110/20] via 10.0.20.5, 01:16:54, Ethernet0/3
+                      [110/20] via 10.0.20.1, 01:16:54, Ethernet0/2
+O E2     10.1.20.0/23 [110/20] via 10.0.20.5, 01:16:43, Ethernet0/3
+                      [110/20] via 10.0.20.1, 01:16:43, Ethernet0/2
+O E2     10.1.30.0/24 [110/20] via 10.0.20.5, 01:16:41, Ethernet0/3
+                      [110/20] via 10.0.20.1, 01:16:41, Ethernet0/2
+      172.20.0.0/24 is subnetted, 1 subnets
+O E2     172.20.0.0 [110/20] via 10.0.20.5, 01:21:41, Ethernet0/3
+                    [110/20] via 10.0.20.1, 01:21:41, Ethernet0/2
+O E2  192.168.50.0/24 [110/20] via 10.0.20.5, 01:21:21, Ethernet0/3
+                      [110/20] via 10.0.20.1, 01:21:21, Ethernet0/2
+
 ```
 
 ## Automating the Network:
