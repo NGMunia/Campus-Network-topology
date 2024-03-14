@@ -62,21 +62,22 @@ InterVLAN routing is configured, enabling communication between different VLANs 
 To enhance network resilience and load sharing, in InterVLAN routing HSRPv2 is implemented.
 
 ```bash
-CORE-SWITCH-1#sh standby brief
+CORE-SWITCH-1#sh standby brief 
                      P indicates configured to preempt.
                      |
 Interface   Grp  Pri P State   Active          Standby         Virtual IP
 Vl10        10   110 P Active  local           192.168.10.2    192.168.10.3
-Vl11        11   110 P Active  local           192.168.11.2    192.168.11.3
-Vl12        12   100 P Standby 192.168.12.2    local           192.168.12.3
+Vl11        11   90  P Standby 192.168.11.2    local           192.168.11.3
+Vl12        12   100 P Active  local           192.168.12.2    192.168.12.3
 
-CORE-SWITCH-2#sh standby brief
+
+CORE-SWITCH-2#sh standby brief 
                      P indicates configured to preempt.
                      |
 Interface   Grp  Pri P State   Active          Standby         Virtual IP
 Vl10        10   100 P Standby 192.168.10.1    local           192.168.10.3
-Vl11        11   100 P Standby 192.168.11.1    local           192.168.11.3
-Vl12        12   110 P Active  local           192.168.12.1    192.168.12.3
+Vl11        11   100 P Active  local           192.168.11.1    192.168.11.3
+Vl12        12   90  P Standby 192.168.12.1    local           192.168.12.3
 ```
 
 **Multi-Area OSPF**:
