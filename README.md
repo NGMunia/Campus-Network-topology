@@ -555,6 +555,23 @@ EDGE-ROUTER-1#sh policy-map control-plane
         conformed 0000 bps, exceeded 0000 bps, violated 0000 bps
 ```
 
+**Content filtering and Security usind DNS**
+By using OpenDNS the Egde firewall and branch edge routers are configured to only allow DNS queries to openDNS host addresses.
+
+All other queries are suppressed.
+This approach helps in filtering malicious and adult content.
+
+```bash
+ip access-list extended Private-Internet-acl
+ permit tcp any any
+ permit udp any host 208.67.220.123 eq domain
+ permit udp any host 208.67.222.123 eq domain
+ deny   udp any any eq domain
+ permit udp any any
+ permit icmp any any
+```
+
+
 ## NAT and Quality of Service
 Branch Officies' routers are configured with NAT to have internet connection rather than having traffic backhauled to HQ.
 However, Firewall and QoS polices are similar across the branch routers for a uniform Internet policy.
