@@ -559,7 +559,7 @@ EDGE-ROUTER-1#sh policy-map control-plane
 
 By using OpenDNS the Egde firewall and branch edge routers are configured to only allow DNS queries to openDNS host addresses.
 
-All other queries are suppressed.
+All other DNS queries are filtered.
 This approach helps in filtering malicious and adult content.
 
 ```bash
