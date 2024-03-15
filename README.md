@@ -557,7 +557,7 @@ EDGE-ROUTER-1#sh policy-map control-plane
 
 **Content filtering and Security using DNS**
 
-By using OpenDNS the Egde firewall and branch edge routers are configured to only allow DNS queries to openDNS host addresses.
+By using OpenDNS the Edge firewall and branch edge routers are configured to only allow DNS queries to openDNS host addresses.
 
 All other DNS queries are filtered.
 This approach helps in filtering malicious and adult content.
