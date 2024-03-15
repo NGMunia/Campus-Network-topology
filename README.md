@@ -555,7 +555,8 @@ EDGE-ROUTER-1#sh policy-map control-plane
         conformed 0000 bps, exceeded 0000 bps, violated 0000 bps
 ```
 
-**Content filtering and Security usind DNS**
+**Content filtering and Security using DNS**
+
 By using OpenDNS the Egde firewall and branch edge routers are configured to only allow DNS queries to openDNS host addresses.
 
 All other queries are suppressed.
