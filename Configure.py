@@ -90,7 +90,7 @@ for devices in chain(Area_0.values(), Firewalls.values(),Edge_Routers.values(), 
     c.disconnect()
 
 
-
+# COnfigure banner MOTD
 rp('[cyan]----------Configuring MOTD banner---------[/cyan]')
 for devices in chain(Area_0.values(), Firewalls.values(),Edge_Routers.values(), Spokes.values(), Switches.values()):
     c = ConnectHandler(**devices)
