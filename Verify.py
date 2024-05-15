@@ -78,4 +78,3 @@ for devices in Edge_Routers.values():
     rp(host,output, sep='\n')
 
 
-

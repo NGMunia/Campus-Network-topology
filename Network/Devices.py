@@ -162,3 +162,19 @@ Switches= {
                       'ip':'10.0.50.11'
                     }               
           }
+ISP_Routers = {
+          'ISP-1': {
+                      'device_type':'cisco_ios',
+                      'username': Username,
+                      'secret': Secret,
+                      'password': Password,
+                      'ip':'44.67.28.1',
+                    },
+          'ISP-2': {
+                      'device_type':'cisco_ios',
+                      'username': Username,
+                      'secret': Secret,
+                      'password': Password,
+                      'ip':'72.73.74.1'
+                    }
+          }
