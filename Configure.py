@@ -4,7 +4,7 @@ from itertools import chain
 from rich import print as rp
 from rich.prompt import Prompt
 from jinja2 import FileSystemLoader, Environment
-from Network.Devices import Area_0, Firewalls, Edge_Routers, Spokes, Switches
+from Network.Devices import Routers, Firewalls, Edge_Routers, Spokes, Switches
 
 
 
@@ -37,7 +37,7 @@ for devices in Spokes.values():
 
 # Configuring NTP
 rp(f'\n[bold cyan]----------Configuring NTP on Network Devices---------[/bold cyan]')
-for devices in chain(Firewalls.values(), Area_0.values(), Spokes.values(),Edge_Routers.values(),Switches.values()):
+for devices in chain(Firewalls.values(), Routers.values(), Spokes.values(),Edge_Routers.values(),Switches.values()):
     c = ConnectHandler(**devices)
     c.enable()
     host  = c.send_command('show version', use_textfsm=True)[0]['hostname']
@@ -57,7 +57,7 @@ for devices in chain(Firewalls.values(), Area_0.values(), Spokes.values(),Edge_R
 
 #Configuring CoPP
 rp(f'\n[bold cyan]----------Configuring Edge Routers---------[/bold cyan]')
-for devices in chain(Firewalls.values(), Area_0.values(), Spokes.values(),Edge_Routers.values(),Switches.values()):
+for devices in chain(Firewalls.values(), Routers.values(), Spokes.values(),Edge_Routers.values(),Switches.values()):
     c = ConnectHandler(**devices)
     c.enable()
     host  = c.send_command('show version', use_textfsm=True)[0]['hostname']
@@ -77,7 +77,7 @@ for devices in chain(Firewalls.values(), Area_0.values(), Spokes.values(),Edge_R
 
 # Configure Syslog
 rp(f'\n[bold cyan]----------Configuring Syslog---------[/bold cyan]')
-for devices in chain(Area_0.values(), Firewalls.values(),Edge_Routers.values(), Spokes.values(), Switches.values()):
+for devices in chain(Routers.values(), Firewalls.values(),Edge_Routers.values(), Spokes.values(), Switches.values()):
     c = ConnectHandler(**devices)
     c.enable()
     host  = c.send_command('show version', use_textfsm=True)[0]['hostname']
@@ -92,7 +92,7 @@ for devices in chain(Area_0.values(), Firewalls.values(),Edge_Routers.values(), 
 
 # COnfigure banner MOTD
 rp('[cyan]----------Configuring MOTD banner---------[/cyan]')
-for devices in chain(Area_0.values(), Firewalls.values(),Edge_Routers.values(), Spokes.values(), Switches.values()):
+for devices in chain(Routers.values(), Firewalls.values(),Edge_Routers.values(), Spokes.values(), Switches.values()):
     c = ConnectHandler(**devices)
     c.enable()
     host = c.send_command('show version',use_textfsm=True)[0]['hostname']
@@ -112,7 +112,7 @@ for devices in chain(Area_0.values(), Firewalls.values(),Edge_Routers.values(), 
 # Configure EEM
 rp(f'\n[bold cyan]----------Configuring Embedded Event Manager--------[/bold cyan]')
 Server_IP = Prompt.ask("[bright_magenta]IP address of the TFTP server: [/]")
-for devices in chain(Area_0.values(), Firewalls.values(),Edge_Routers.values(), Spokes.values(), Switches.values()):
+for devices in chain(Routers.values(), Firewalls.values(),Edge_Routers.values(), Spokes.values(), Switches.values()):
     c = ConnectHandler(**devices)
     c.enable()
     host  = c.send_command('show version', use_textfsm=True)[0]['hostname']

@@ -40,7 +40,7 @@ Spokes  =  {
                       'ip':'172.20.0.7'
                     }         
             }
-Area_0 =  {
+Routers =   {
           'CORE-1': {
                       'device_type':'cisco_ios',
                       'username': Username,

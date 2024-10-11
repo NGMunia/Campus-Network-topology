@@ -2,13 +2,13 @@
 from netmiko import ConnectHandler
 from itertools import chain
 from rich import print as rp
-from Network.Devices import Area_0, Spokes, Firewalls, Edge_Routers, Switches
+from Network.Devices import Routers, Spokes, Firewalls, Edge_Routers, Switches
 
 
 
 # VERIFYING SPANNING-TREE SUMMARY
 rp('\n[bold cyan]----------Verifying SPANNING TREE LOAD BALANCING---------[/bold cyan]')   
-for devices in Area_0.values():
+for devices in Routers.values():
     c = ConnectHandler(**devices)
     c.enable()
     host  = c.send_command('show version', use_textfsm=True)[0]['hostname']
@@ -19,7 +19,7 @@ for devices in Area_0.values():
 
 # VERIFYING ETHERCHANNELS
 rp('\n[bold cyan]----------Verifying Etherchannels---------[/bold cyan]')  
-for devices in Area_0.values():
+for devices in Routers.values():
     c = ConnectHandler(**devices)
     c.enable()
     host  = c.send_command('show version', use_textfsm=True)[0]['hostname']
@@ -41,7 +41,7 @@ for devices in Switches.values():
 
 # VERIFYING HSRPv2 and VRRP
 rp('\n[bold cyan]----------Verifying HSRPv2 on Edge_Routers and And Core Switches---------[/bold cyan]')    
-for devices in chain(Area_0.values(),Edge_Routers.values()):
+for devices in chain(Routers.values(),Edge_Routers.values()):
     c = ConnectHandler(**devices)
     c.enable()
     host  = c.send_command('show version', use_textfsm=True)[0]['hostname']
@@ -59,7 +59,7 @@ for devices in Spokes.values():
 
 # VERIFYING OSPF ON CORE ROUTERS:
 rp('\n[bold cyan]----------Verifying OSPF on CORE ROUTERS---------[/bold cyan]')
-for devices in Area_0.values():
+for devices in Routers.values():
     c = ConnectHandler(**devices)
     c.enable()
     host  = c.send_command('show version', use_textfsm=True)[0]['hostname']
